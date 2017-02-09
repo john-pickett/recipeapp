@@ -26,8 +26,11 @@ $(document).ready(function(){
   // Search function
   $('#btnSearch').on('click', searchRecipes);
 
-  //Send text message
+  //Send text message for Grocery List
   $('#btnText').on('click', sendText);
+
+  // Send email of Grocery List
+  $('#btnEmail').on('click', sendEmail);
 });
 
 // Functions
@@ -294,6 +297,7 @@ function textSelect(input){
 
 // function to send text message via Twilio
 function sendText(event) {
+  event.preventDefault();
   var textMessage = {
     to: '2566686887',
     from: '2562903706',
@@ -321,6 +325,39 @@ function sendText(event) {
       }
   });
 };
+
+// function to send email via Gmail to Evernote
+function sendEmail() {
+  // event.preventDefault();
+  var emailMessage = {
+    from: 'expsheep@gmail.com',
+    to: 'johnpick.10396@m.evernote.com',
+    subject: 'Grocery List',
+    html: textSelect(selectedRecipes)
+  };
+
+  // Use AJAX to post the message to our sendtext service
+  $.ajax({
+      type: 'POST',
+      data: emailMessage,
+      url: '/recipes/sendemail',
+      dataType: 'JSON'
+  }).done(function( response ) {
+
+      // Check for successful (blank) response
+      if (response.msg === '') {
+          //show successful message
+          $('#menu-plan').append("<span class='textTimer'>Email was sent successfully!</span>");
+          setTimeout( function(){
+            $('.textTimer').remove();
+          }, 2000);
+      } else {
+          // If something goes wrong, alert the error message that our service returned
+          alert('Error: ' + response.msg);
+      }
+  });
+};
+
 
 
 // Adds blank lines for use in the grocery list

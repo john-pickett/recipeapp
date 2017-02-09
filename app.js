@@ -11,17 +11,26 @@ var twilio = require('twilio');
 // Twilio Credentials
 var accountSid = 'AC4a65c018fca1b4693ea69aa208f1b98d';
 var authToken = 'e55be36f2570d258092d7b53f0b76f35';
-
 //require the Twilio module and create a REST client
 var client = require('twilio')(accountSid, authToken);
-
-//
+//Nodemailer code
+var nodemailer = require('nodemailer');
 
 var index = require('./routes/index');
 var recipes = require('./routes/recipes');
 
 
 var app = express();
+// start nodemailer code
+// var smtpTransport = nodemailer.createTransport("SMTP",{
+//     service: "Gmail",
+//     auth: {
+//         user: "expsheep@gmail.com",
+//         pass: "jnrFp3WP2tXk"
+//     }
+// });
+
+// end of nodemailer code
 
 app.use(express.static(path.join(__dirname)));
 // view engine setup
@@ -44,7 +53,6 @@ app.use(function(req,res,next){
 
 app.use('/', index);
 app.use('/recipes', recipes);
-// app.use('/newrecipe', newrecipe);
 
 
 // catch 404 and forward to error handler
