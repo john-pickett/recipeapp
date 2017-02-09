@@ -1,0 +1,188 @@
+body {
+  padding: 30px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+h2 {
+	margin:0 0 .5em 0;
+  font-color: #0099CC;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.navbar {
+  background-color: #0099CC !important;
+  z-index: 9999;
+  border: 0;
+  font-size: 18px !important;
+  border-radius: 0;
+}
+  .navbar li {
+    display: inline;
+    color: white !important;
+  }
+  .navbar a{
+    color: white !important;
+  }
+
+#wrapper {
+	margin-top: 50px;
+}
+
+/*Start of Home Page*/
+
+#recipeList {
+	margin:0 0 10px 0;
+}
+	#recipeList table {
+		border-collapse:separate;
+		border-spacing:1px;
+		background:#CCC;
+	}
+		#recipeList table th {
+			background:#EEE;
+			font-weight:600;
+			padding:10px 20px;
+			text-align:center;
+		}
+		#recipeList table tbody {
+			padding:0; margin:0;
+			border-collapse:collapse;
+			border-spacing:0px;
+		}
+			#recipeList table td {
+				background:#FFF;
+				padding:5px 10px;
+				text-align:center;
+			}
+#cuisine-select {
+  text-align: center;
+}
+#cuisine-select select{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#search-recipes {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#recipeInfo {
+	width:250px;
+	position:relative;
+	top:0; left:0;
+}
+	#recipeInfo p {
+		padding:15px;
+		border:1px solid #CCC;
+		background:rgba(80,120,255,0.05);
+	}
+
+fieldset {
+	border:0;
+	padding:0; margin:0;
+}
+
+#menu-plan button{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#selected-meals {
+  display: none;
+}
+
+/*Start of Add Recipe Page */
+#newRecipeList {
+  margin: 20px;
+}
+
+#newRecipeList table {
+  border-collapse:separate;
+  border-spacing:1px;
+  background:#CCC;
+}
+  #newRecipeList table th {
+    background:#EEE;
+    font-weight:600;
+    padding:10px 20px;
+    text-align:center;
+  }
+  #newRecipeList table tbody {
+    padding:0; margin:0;
+    border-collapse:collapse;
+    border-spacing:0px;
+  }
+    #newRecipeList table td {
+      background:#FFF;
+      padding:5px 10px;
+      text-align:center;
+    }
+
+#addRecipePanel {
+  margin: 20px;
+}
+
+.editRecipePanel {
+  display: none;
+}
+
+.second-col {
+  padding-top: 65px;
+}
+
+.deleterecipe{
+  display: none;
+}
+
+.textbox {
+  width: 304px;
+  height: 50px;
+}
+
+#btnClear {
+  margin-bottom: 10px;
+}
+
+/*Start of Printed Pages */
+
+@media print {
+  #print-cover-page{
+    column-count: 1;
+    text-align: center;
+    padding: 10px;
+    page-break-after: always;
+  }
+  #print-cover-page p {
+    text-align: left;
+  }
+  #print-recipe-pages{
+    padding: 10px;
+    text-align: left;
+    page-break-after: always;
+  }
+    .print-full-recipe{
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+    .print-recipe-pages-name{
+      padding: 10px;
+    }
+    .print-recipe-pages-ingredients{
+      column-count: 2;
+      padding: 10px;
+    }
+    .print-recipe-pages-recipe{
+      padding: 10px;
+    }
+  #print-grocery-list{
+    column-count: 3;
+    padding: 10px;
+  }
+}
