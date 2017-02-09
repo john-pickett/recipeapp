@@ -78,12 +78,14 @@ router.delete('/deleterecipe/:id', function(req, res) {
 });
 
 // Twilio code
-// client.messages.create({
-//         to: '<ToNumber>',
-//         from: '<FromNumber>',
-//         body: '<BodyText>',
-//     }, function (err, message) {
-//         console.log(message.sid);
-//     });
+router.post('/sendtext', function(req, res){
+  client.messages.create({
+    to: '2566686887',
+    from: '2562903706',
+    body: req.body.body
+  }, function(err){
+    res.send((err === null) ? {msg: ''} : { msg: 'error: ' + err});
+  });
+});
 
 module.exports = router;

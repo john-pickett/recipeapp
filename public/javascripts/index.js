@@ -25,10 +25,13 @@ $(document).ready(function(){
 
   // Search function
   $('#btnSearch').on('click', searchRecipes);
+
+  //Send text message
+  $('#btnText').on('click', sendText);
 });
 
 // Functions
-// all functions for manipulating the page and selecting recipes are first. then all functions for priting the menu and list
+// all functions for manipulating the page and selecting recipes are first. then all functions for printing the menu and list
 
 function populateTable(){
   var tableContent = '';
@@ -280,6 +283,45 @@ function printGroceryList(selectedRecipes, recipeListData){
   groceryString = groceryString.replace(/None/g, ''); // this still leaves a blank line in the printed list =(
   return groceryString;
 }
+//function to iterate over selectedRecipes for the text message
+function textSelect(input){
+  var selection = "";
+  input.forEach(function(item){
+    selection += item + "\n";
+  });
+  return selection;
+}
+
+// function to send text message via Twilio
+function sendText(event) {
+  var textMessage = {
+    to: '2566686887',
+    from: '2562903706',
+    body: textSelect(selectedRecipes)
+  };
+
+  // Use AJAX to post the message to our sendtext service
+  $.ajax({
+      type: 'POST',
+      data: textMessage,
+      url: '/recipes/sendtext',
+      dataType: 'JSON'
+  }).done(function( response ) {
+
+      // Check for successful (blank) response
+      if (response.msg === '') {
+          //show successful message
+          $('#menu-plan').append("<span class='textTimer'>Text was sent successfully!</span>");
+          setTimeout( function(){
+            $('.textTimer').remove();
+          }, 2000);
+      } else {
+          // If something goes wrong, alert the error message that our service returned
+          alert('Error: ' + response.msg);
+      }
+  });
+};
+
 
 // Adds blank lines for use in the grocery list
 function addlSpace(input) {

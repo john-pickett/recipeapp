@@ -33,6 +33,7 @@ $(document).ready(function(){
 
   // Clear all inputs
   $('#btnClear').on('click', clearAll);
+
 });
 
 // Functions
