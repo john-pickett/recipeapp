@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var twilio = require('twilio');
+
 // Twilio Credentials
 var accountSid = 'AC4a65c018fca1b4693ea69aa208f1b98d';
 var authToken = 'e55be36f2570d258092d7b53f0b76f35';
 
 //require the Twilio module and create a REST client
-var client = require('twilio')(accountSid, authToken);
+var client = twilio(accountSid, authToken);
 
 // GET users listing
 router.get('/recipelist', function(req, res) {
@@ -76,12 +78,12 @@ router.delete('/deleterecipe/:id', function(req, res) {
 });
 
 // Twilio code
-client.messages.create({
-        to: '<ToNumber>',
-        from: '<FromNumber>',
-        body: '<BodyText>',
-    }, function (err, message) {
-        console.log(message.sid);
-    });
+// client.messages.create({
+//         to: '<ToNumber>',
+//         from: '<FromNumber>',
+//         body: '<BodyText>',
+//     }, function (err, message) {
+//         console.log(message.sid);
+//     });
 
 module.exports = router;

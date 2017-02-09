@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('mongodb://heroku_hbfk1244:fd6q30qjacbtv0d580bmms91p7@ds151068.mlab.com:51068/heroku_hbfk1244');
+var twilio = require('twilio');
 // Twilio Credentials
 var accountSid = 'AC4a65c018fca1b4693ea69aa208f1b98d';
 var authToken = 'e55be36f2570d258092d7b53f0b76f35';
