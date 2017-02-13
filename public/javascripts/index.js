@@ -9,7 +9,8 @@ $(document).ready(function(){
   populateTable();
 
   // Recipe name link click
-  $('#recipeList table tbody').on('click', 'td a.linkshowuser', showRecipeInfo);
+  //$('#recipeList table tbody').on('click', 'td a.linkshowuser', showRecipeInfo);
+  $('#recipeList table tbody').on('click', 'td a.linkshowuser', showRecipeDetails);
 
   // Select Recipe Checkbox click
   $('#recipeList table tbody').on('click', 'td .recipeCheckbox', selectRecipe);
@@ -30,7 +31,7 @@ $(document).ready(function(){
   $('#btnText').on('click', sendText);
 
   // Send email of Grocery List
-  $('#btnEmail').on('click', sendEmail);
+  // $('#btnEmail').on('click', sendEmail);
 });
 
 // Functions
@@ -59,7 +60,9 @@ function populateTable(){
       } else {
         tableContent += '<td><input type="checkbox" id="' + this.name.replace(/\s+/g, '_') + 'Checkbox" class="recipeCheckbox" checked></td>';
       }
-      tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.name + '">' + this.name + '</a></td>';
+      // changed the following line to use this._id instead of this.name as the link rel
+      // may have broken something? but so far looks good
+      tableContent += '<td><a href="#" class="linkshowuser" rel="' + this._id + '">' + this.name + '</a></td>';
       tableContent += '<td>' + this.cuisine + '</td>';
       tableContent += '</tr>';
     });
@@ -206,6 +209,23 @@ function showRecipeInfo(event) {
     $('#recipeIngredients').html(requiredIngredients);
 };
 
+// Show Recipe Details on /viewrecipe
+function showRecipeDetails(event) {
+    event.preventDefault();
+    var id = {id: $(this).attr('rel')};
+    $.ajax({
+        type: 'PUT',
+        data: id,
+        url: '/recipes/sendid/',
+        dataType: 'JSON'
+    }).done(function(data) {
+        console.log(data);
+        if (data.msg === "go") {
+        window.location = data.redirect;
+      }
+    });
+};
+
 // beginning of Printing Menu and List functions
 
 // printList needs to show menu plan & ingredients plus grocery list of ingredients
@@ -326,11 +346,10 @@ function sendText(event) {
   });
 };
 
-// function to send email via Gmail to Evernote
 function sendEmail() {
   // event.preventDefault();
   var emailMessage = {
-    from: 'expsheep@gmail.com',
+    from: 'john@johnpickett.net',
     to: 'johnpick.10396@m.evernote.com',
     subject: 'Grocery List',
     html: textSelect(selectedRecipes)
@@ -357,6 +376,39 @@ function sendEmail() {
       }
   });
 };
+
+// function to send email via Gmail to Evernote
+// doesn't work - here for posterity
+// function sendEmail() {
+//   // event.preventDefault();
+//   var emailMessage = {
+//     from: 'expsheep@gmail.com',
+//     to: 'johnpick.10396@m.evernote.com',
+//     subject: 'Grocery List',
+//     html: textSelect(selectedRecipes)
+//   };
+//
+//   // Use AJAX to post the message to our sendtext service
+//   $.ajax({
+//       type: 'POST',
+//       data: emailMessage,
+//       url: '/recipes/sendemail',
+//       dataType: 'JSON'
+//   }).done(function( response ) {
+//
+//       // Check for successful (blank) response
+//       if (response.msg === '') {
+//           //show successful message
+//           $('#menu-plan').append("<span class='textTimer'>Email was sent successfully!</span>");
+//           setTimeout( function(){
+//             $('.textTimer').remove();
+//           }, 2000);
+//       } else {
+//           // If something goes wrong, alert the error message that our service returned
+//           alert('Error: ' + response.msg);
+//       }
+//   });
+// };
 
 
 

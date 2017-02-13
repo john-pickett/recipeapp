@@ -14,28 +14,24 @@ var authToken = 'e55be36f2570d258092d7b53f0b76f35';
 //require the Twilio module and create a REST client
 var client = require('twilio')(accountSid, authToken);
 //Nodemailer code
-var nodemailer = require('nodemailer');
+// var nodemailer = require('nodemailer');
+
+// using SendGrid's v3 Node.js Library
+// https://github.com/sendgrid/sendgrid-nodejs
+// var helper = require('sendgrid').mail;
+
 
 var index = require('./routes/index');
 var recipes = require('./routes/recipes');
 
 
 var app = express();
-// start nodemailer code
-// var smtpTransport = nodemailer.createTransport("SMTP",{
-//     service: "Gmail",
-//     auth: {
-//         user: "expsheep@gmail.com",
-//         pass: "jnrFp3WP2tXk"
-//     }
-// });
-
-// end of nodemailer code
 
 app.use(express.static(path.join(__dirname)));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

@@ -282,6 +282,7 @@ function updateRecipe(event) {
       });
   };
 
+
 // Delete Recipe
 function deleteRecipe(event) {
     event.preventDefault();
