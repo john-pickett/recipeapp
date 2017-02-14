@@ -13,14 +13,8 @@ router.get('/addrecipe', function(req, res, next) {
 
 /* GET View Recipe page */
 router.get('/viewrecipe', function(req, res, next) {
-  // var id = req.params.id;
   res.render('viewrecipe', { title: 'View Recipe Details'});
 });
-
-/* POST Send ID on home page */
-// router.post('/sendid', function(req, res) {
-//   res.send({redirect: '/viewrecipe', msg: "go", id: "this is from index.js - routes"});
-// });
 
 
 module.exports = router;

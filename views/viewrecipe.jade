@@ -14,10 +14,9 @@ html
               <li><a href="/viewrecipe">View Recipe</a></li>
       #wrapper
         .container-fluid
-          #recipe-box
-            h1 Recipe Details
-            p= id
-            p welcome #{id}
+        .row
+          .col.col-md-6
+            #recipe-box
       script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
       script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
       script(src='/public/javascripts/viewrecipe.js')

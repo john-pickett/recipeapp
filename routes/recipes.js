@@ -11,8 +11,27 @@ var client = twilio(accountSid, authToken);
 //SendGrid
 // var helper = require('sendgrid').mail;
 
-// GET users listing
+// GET Recipe list
 router.get('/recipelist', function(req, res) {
+    var db = req.db;
+    var collection = db.get('recipes');
+    collection.find({},{},function(e,docs){
+        res.json(docs);
+    });
+});
+
+// GET recipe details to view
+router.get('/getid', function(req, res){
+  var db = req.db;
+  var collection = db.get('functions');
+  collection.find({},{},function(e,docs){
+    res.json(docs);
+  });
+});
+
+// GET Recipe list for View Recipe Page
+router.get('/getview', function(req, res) {
+    // var id = req.body.id;
     var db = req.db;
     var collection = db.get('recipes');
     collection.find({},{},function(e,docs){

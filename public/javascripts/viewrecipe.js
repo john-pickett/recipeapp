@@ -1,38 +1,48 @@
 // Recipe list data array for filling in info box
 var recipeListData = [];
-var selectedRecipes = [];
+var recipeId = {};
 
 // DOM Ready
 $(document).ready(function(){
 
-  // Populate the recipe table on initial page load
-  populateTable();
+  // Get the recipe ID from functions database
+  getId();
+
+  // Get the recipe information from the recipes database
+  // getRecipes();
 
 });
 
-function populateTable(){
+// gets the recipe ID from the database
+function getId(){
+  $.getJSON('/recipes/getid', function(data){
+    recipeId = {
+      id: data[0].view_id
+    };
+    getRecipes(recipeId);
+  });
+}
 
-  //empty content string
-  var tableContent = '';
+function getIdFromObject(recipes){
+var answer = {};
+  recipes.forEach(function(item){
+    if (item._id == recipeId.id) {
+      answer = item;
+    }
+  });
+  return answer;
+}
+
+function getRecipes(input){
 
   // jquery AJAX call for JSON
-  $.getJSON('/recipes/recipelist', function (data){
-
-    // adds all user info from database to the global variable
+  $.getJSON('/recipes/getview', function(data){
     recipeListData = data;
+    var thisRecipeObject = getIdFromObject(recipeListData);
+    $('#recipe-box').append("<h1>" + thisRecipeObject.name + "</h1>");
+    $('#recipe-box').append("<p>" + thisRecipeObject.recipe + "</p>");
+    $('#recipe-box').append("<p>" + JSON.stringify(thisRecipeObject) + "</p>");
+    // $('#recipe-box').(JSON.stringify(thisRecipeObject));
+  }); // end of AJAX for recipelist
 
-    // for each item in our JSON, add a table row and cells to the content string
-    // $.each(data, function(){
-    //   tableContent += '<tr>';
-    //   //tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.name + '">' + this.name + '</a></td>';
-    //   tableContent += '<td>' + this.name + '</td>';
-    //   tableContent += '<td>' + this.cuisine + '</td>';
-    //   tableContent += '<td><a href="#" style="color: white; background-color: red; padding: 2px;" class="linkdeleteuser deleterecipe" rel="' + this._id + '">Delete?</a> <a href="#" class="linkedituser editrecipe" rel="' + this._id + '">Edit</a></td>';
-    //   tableContent += '</tr>';
-    // });
-
-    // inject the whole content string into our existing HTML table
-    //$('#newRecipeList table tbody').html(tableContent);
-    $('#recipe-box').append("Does it work?");
-  });
 };
